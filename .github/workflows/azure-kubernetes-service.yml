@@ -33,7 +33,7 @@ jobs:
         id: login
         uses: azure/login@v1.4.3
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDS }}
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
