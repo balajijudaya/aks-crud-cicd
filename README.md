@@ -20,10 +20,13 @@
 4. Get Resource Group Name
    `resource_group_name=$(terraform output -raw resource_group_name)`
 5. Get Cluster Name
-  `az aks list \
+   
+  ```bash
+  $ az aks list \
   --resource-group $resource_group_name \
   --query "[].{\"K8s cluster name\":name}" \
-  --output table`
+  --output table
+```
 
 ## Docker Build And Push
 
@@ -47,11 +50,13 @@ $ docker push <dockerhub_user>/usersapp:latest .
 
 ## Configure Github Actions
 
-1. `az ad sp create-for-rbac \
+1. ```bash
+   $ az ad sp create-for-rbac \
     --name "ghActionAzureRbac" \
     --scope /subscriptions/a940bee1-b520-434a-85a4-ab091a8ddf1e/resourceGroups/rg-tender-lioness \
     --role Contributor \
-    --sdk-auth`
+    --sdk-auth
+   ```
 2. Get json output and add as Secret variable value AZURE_CREDS
 3. Set DOCKERHUB_USER and DOCKERHUB_PASSWORD secrets
 
@@ -59,34 +64,46 @@ $ docker push <dockerhub_user>/usersapp:latest .
 
 1. Get kubernetes loadbalancer IP `kubectl get service server-api`
 2. Create User:
-   `curl -X POST \
-  http://20.231.239.89:8080/users \
-  -d '{
-	"firstName": "test",
-	"lastName": "test1234",
-	"username": "testuser",
-	"password": "testpassword",
-	"salary": "10000",
-	"age": "28"
+   
+   ```bash
+	$ curl -X POST \
+	  http://20.231.239.89:8080/users \
+	  -d '{
+		"firstName": "test",
+		"lastName": "test1234",
+		"username": "testuser",
+		"password": "testpassword",
+		"salary": "10000",
+		"age": "28"
+	 	}'
+  	```
    `
 3. Get Users:
-   `curl -X GET \
-  http://20.231.239.89:8080/users`
+   ```bash
+	$ curl -X GET \
+	  http://20.231.239.89:8080/users
+	```
 4. Get User:
-   `curl -X GET \
-  http://20.231.239.89:8080/users/3`
+   ```bash
+   $ curl -X GET \
+	  http://20.231.239.89:8080/users/3
+	  ```
 5. Update User:
-   `curl -X PUT \
-  http://20.231.239.89:8080/users/3 \
-  -d '{
-	"id": 3,
-	"firstName": "test",
-	"lastName": "test1234",
-	"username": "testusernew",
-	"password": "testpassword",
-	"salary": "20000",
-	"age": "29"
-}'`
+   ```bash
+	$ curl -X PUT \
+	  http://20.231.239.89:8080/users/3 \
+	  -d '{
+		"id": 3,
+		"firstName": "test",
+		"lastName": "test1234",
+		"username": "testusernew",
+		"password": "testpassword",
+		"salary": "20000",
+		"age": "29"
+	}'
+	```
 7. Delete User:
-  `curl -X DELETE \
-  http://20.231.239.89:8080/users/4`
+  ```bash
+	$ curl -X DELETE \
+	  http://20.231.239.89:8080/users/4
+```
