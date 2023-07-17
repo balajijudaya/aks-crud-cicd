@@ -16,6 +16,11 @@ az aks list \
   --query "[].{\"K8s cluster name\":name}" \
   --output table
 
+az ad sp create-for-rbac \
+    --name "ghActionAzureRbac" \
+    --scope /subscriptions/a940bee1-b520-434a-85a4-ab091a8ddf1e/resourceGroups/rg-tender-lioness \
+    --role Contributor \
+    --sdk-auth
 echo "$(terraform output kube_config)" > ./azurek8s
 
 export KUBECONFIG=./azurek8s
